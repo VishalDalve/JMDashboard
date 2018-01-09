@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dashboard.jmtechmind.com.jmdashboard.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="15dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="Tenant Report"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#000" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_viewmore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_gravity="right"
+            android:textStyle="bold"
+            android:padding="5dp"
+                     android:text="View More"
+            android:textSize="10dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:text="Billing Report"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/vendor_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="Payment : Vendor List"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/propo_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="PRO/PO :  List"
+            android:textSize="16dp" />
+
+        <TextView
+        android:id="@+id/tv_cust_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="@drawable/borderhighlight"
+        android:layout_marginTop="10dp"
+        android:text="Customer : Payment List"
+        android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_sales_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="Sales Report : List"
+            android:textSize="16dp" />
+
+
+
+        <TextView
+            android:id="@+id/tv_cust_sales_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="Sales : Customer List"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_sales_gst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="Sales GST"
+            android:textSize="16dp" />
+
+
+        <TextView
+            android:id="@+id/tv_purchase_gst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:background="@drawable/borderhighlight"
+            android:layout_marginTop="10dp"
+            android:text="Purchase GST"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>
