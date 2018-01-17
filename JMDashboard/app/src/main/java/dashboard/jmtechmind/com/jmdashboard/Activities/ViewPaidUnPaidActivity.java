@@ -1,4 +1,4 @@
-package dashboard.jmtechmind.com.jmdashboard;
+package dashboard.jmtechmind.com.jmdashboard.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,13 +16,6 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,13 +23,16 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import dashboard.jmtechmind.com.jmdashboard.Adapters.OffersRootAdapter;
+import dashboard.jmtechmind.com.jmdashboard.R;
+import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

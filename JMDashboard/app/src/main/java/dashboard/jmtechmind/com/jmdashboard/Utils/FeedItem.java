@@ -1,10 +1,10 @@
-package dashboard.jmtechmind.com.jmdashboard;
+package dashboard.jmtechmind.com.jmdashboard.Utils;
 
 /**
  * Created by jmtec on 12/8/2017.
  */
 
-class FeedItem {
+public class FeedItem {
     public String paid;
     public String unpaid;
 

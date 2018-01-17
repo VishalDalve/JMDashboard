@@ -1,4 +1,4 @@
-package dashboard.jmtechmind.com.jmdashboard;
+package dashboard.jmtechmind.com.jmdashboard.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +29,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import dashboard.jmtechmind.com.jmdashboard.Adapters.OffersRootAdapter;
+import dashboard.jmtechmind.com.jmdashboard.R;
+import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

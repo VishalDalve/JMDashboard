@@ -1,4 +1,4 @@
-package dashboard.jmtechmind.com.jmdashboard;
+package dashboard.jmtechmind.com.jmdashboard.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +30,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import dashboard.jmtechmind.com.jmdashboard.Adapters.OffersRootAdapter;
+import dashboard.jmtechmind.com.jmdashboard.R;
+import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -37,7 +41,7 @@ import static android.view.View.VISIBLE;
  * Created by jmtec on 1/6/2018.
  */
 
-public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
         Intent i;
         Context mcontext;
@@ -66,7 +70,7 @@ protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Sales GST");
+        getSupportActionBar().setTitle("Customer List");
         }
 
         emptyView = findViewById(R.id.null_layout);
@@ -75,7 +79,7 @@ protected void onCreate(Bundle savedInstanceState) {
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mcontext));
         inputSearch = findViewById(R.id.search_bar);
-        inputSearch.setQueryHint("Search GST customer name");
+        inputSearch.setQueryHint("Search Customer Name");
 
         new OfferAsyncHttpTask().execute();
 
@@ -168,7 +172,7 @@ public class OfferAsyncHttpTask extends AsyncTask<String, Void, Integer> {
     protected Integer doInBackground(String... params) {
         try {
 //                http://10.10.10.53/tenantname.phphttp://localhost/tenantname.php?status=unpaid
-            URL url = new URL("http://10.10.10.53/jm_bill_sales_gst.php");
+            URL url = new URL("http://10.10.10.53/jm_bill_cusotmerlist.php");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -274,9 +278,9 @@ public class OfferAsyncHttpTask extends AsyncTask<String, Void, Integer> {
                 item.setProprietor_name1(post.optString("Name"));
                 item.setDate(post.optString("CreatedDate"));
                 item.setAdmin_name(post.optString("Address"));
-                item.setTotal(post.optString("Mobile"));
+                item.setTotal(post.optString("PaidAmount"));
                 item.setIs_viewed(post.optString("GSTIN"));
-                item.setPaid_un_paid(post.optString("PaidAmount"));
+                item.setPaid_un_paid(post.optString("Mobile"));
 
                 feedsList.add(item);
 

@@ -1,4 +1,4 @@
-package dashboard.jmtechmind.com.jmdashboard;
+package dashboard.jmtechmind.com.jmdashboard.Adapters;
 
 /**
  * Created by Vishal on 2/1/2016.
@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dashboard.jmtechmind.com.jmdashboard.R;
+import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
 
 
 public class OffersRootAdapter extends RecyclerView.Adapter<OffersRootAdapter.CustomViewHolder> {

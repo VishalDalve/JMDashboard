@@ -8,11 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +31,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import dashboard.jmtechmind.com.jmdashboard.Activities.CustPaymentList;
+import dashboard.jmtechmind.com.jmdashboard.Activities.SalesCustList;
+import dashboard.jmtechmind.com.jmdashboard.Activities.SalesGST;
+import dashboard.jmtechmind.com.jmdashboard.Activities.VendorList;
+import dashboard.jmtechmind.com.jmdashboard.Activities.ViewPaidUnPaidActivity;
+import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
 
 public class MainActivity extends AppCompatActivity {
 
