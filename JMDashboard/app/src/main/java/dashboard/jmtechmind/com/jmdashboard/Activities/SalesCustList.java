@@ -33,6 +33,7 @@ import java.util.List;
 import dashboard.jmtechmind.com.jmdashboard.Adapters.OffersRootAdapter;
 import dashboard.jmtechmind.com.jmdashboard.R;
 import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
+import dashboard.jmtechmind.com.jmdashboard.Utils.GetReaponse;
 import dashboard.jmtechmind.com.jmdashboard.Utils.Webservices;
 
 import static android.view.View.GONE;
@@ -44,27 +45,23 @@ import static android.view.View.VISIBLE;
 
 public class SalesCustList extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    Intent i;
     Context mcontext;
     SearchView inputSearch;
     List<FeedItem> filteredModelList;
-
-
     OffersRootAdapter adapter;
-    boolean lang = false;
     RecyclerView mRecyclerView;
     View emptyView;
-    View view;
     boolean isfilter = false;
     SwipeRefreshLayout swipeContainer;
-    TextView llcandi;
     private List<FeedItem> feedsList;
+    GetReaponse gr;//gr = new GetReaponse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_main);
         mcontext = this;
+        gr = new GetReaponse();
 
         // add back arrow to toolbar
         if (getSupportActionBar() != null) {
@@ -171,71 +168,10 @@ public class SalesCustList extends AppCompatActivity implements SwipeRefreshLayo
         @Override
         protected Integer doInBackground(String... params) {
             try {
-//                http://10.10.10.53/tenantname.phphttp://localhost/tenantname.php?status=unpaid
 
-               // GetResponse(mcontext, Webservices.WEBSERVICE_BILL_SALE_GST);
+                // making request to server & parsing the data ------------------------
+                parseResult(gr.GetResponses(Webservices.WEBSERVICE_CUST_SALES));
 
-
-                URL url = new URL("http://10.10.10.53/jm_bill_cusotmer_sales_list.php");
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-//                ApiCrypter apicry = new ApiCrypter();
-//                String data_web = "";
-
-                String encryptedRequest = "";
-//                try {
-//                    encryptedRequest = apicry.encrypt(data_web);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                String urlParameters = encryptedRequest;
-
-                //  Log.d("BOOKING_params", urlParameters);
-
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-                connection.setDoOutput(true);
-                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-                dStream.writeBytes(urlParameters);
-                dStream.flush();
-                dStream.close();
-                // int responseCode = connection.getResponseCode();
-                final StringBuilder output = new StringBuilder();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line = "";
-                StringBuilder responseOutput = new StringBuilder();
-                while ((line = br.readLine()) != null) {
-                    responseOutput.append(line);
-                }
-                br.close();
-
-                output.append(responseOutput.toString());
-
-
-                String s = output.toString();
-
-
-//                try {
-//                    apicry = new ApiCrypter();
-//                    String res = ApiCrypter.decrypt(s);
-//                    s = URLDecoder.decode(res, "UTF-8");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-                Log.d("     Data", s);
-
-
-                parseResult(s);
-
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
 

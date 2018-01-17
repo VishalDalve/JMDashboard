@@ -33,6 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import dashboard.jmtechmind.com.jmdashboard.Activities.CustPaymentList;
+import dashboard.jmtechmind.com.jmdashboard.Activities.PurchaseGST;
 import dashboard.jmtechmind.com.jmdashboard.Activities.SalesCustList;
 import dashboard.jmtechmind.com.jmdashboard.Activities.SalesGST;
 import dashboard.jmtechmind.com.jmdashboard.Activities.VendorList;
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
         purchasegast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i = new Intent(MainActivity.this, SalesGST.class);
-//                startActivity(i);
+                Intent i = new Intent(MainActivity.this, PurchaseGST.class);
+                startActivity(i);
             }
         });
 

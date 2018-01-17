@@ -45,23 +45,16 @@ import static android.view.View.VISIBLE;
 
 public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    Intent i;
     Context mcontext;
     SearchView inputSearch;
     List<FeedItem> filteredModelList;
-
-
     OffersRootAdapter adapter;
-    boolean lang = false;
     RecyclerView mRecyclerView;
     View emptyView;
-    View view;
     boolean isfilter = false;
     SwipeRefreshLayout swipeContainer;
-    TextView llcandi;
     private List<FeedItem> feedsList;
-    private List<String> feedItem;
-    GetReaponse gr;
+    GetReaponse gr;//gr = new GetReaponse();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,13 +117,6 @@ public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-//        swipeContainer.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                swipeContainer.setRefreshing(true);
-//            }
-//        });
-
     }
 
     @Override
@@ -169,8 +155,6 @@ public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout
         @Override
         protected void onPreExecute() {
             swipeContainer.setRefreshing(true);
-
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -178,72 +162,11 @@ public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout
         protected Integer doInBackground(String... params) {
             try {
 
-                parseResult(gr.GetResponses(mcontext, Webservices.WEBSERVICE_BILL_SALE_GST));
-
-////                http://10.10.10.53/tenantname.phphttp://localhost/tenantname.php?status=unpaid
-//                URL url = new URL("http://10.10.10.53/jm_bill_sales_gst.php");
-//
-//                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//
-////                ApiCrypter apicry = new ApiCrypter();
-////                String data_web = "";
-//
-//                String encryptedRequest = "";
-////                try {
-////                    encryptedRequest = apicry.encrypt(data_web);
-////                } catch (Exception e) {
-////                    e.printStackTrace();
-////                }
-//
-//                String urlParameters = encryptedRequest;
-//
-//                //  Log.d("BOOKING_params", urlParameters);
-//
-//                connection.setRequestMethod("POST");
-//                connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-//                connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-//                connection.setDoOutput(true);
-//                DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-//                dStream.writeBytes(urlParameters);
-//                dStream.flush();
-//                dStream.close();
-//                // int responseCode = connection.getResponseCode();
-//                final StringBuilder output = new StringBuilder();
-//
-//                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//                String line = "";
-//                StringBuilder responseOutput = new StringBuilder();
-//                while ((line = br.readLine()) != null) {
-//                    responseOutput.append(line);
-//                }
-//                br.close();
-//
-//                output.append(responseOutput.toString());
-//
-//
-//                String s = output.toString();
-//
-//
-////                try {
-////                    apicry = new ApiCrypter();
-////                    String res = ApiCrypter.decrypt(s);
-////                    s = URLDecoder.decode(res, "UTF-8");
-////                } catch (Exception e) {
-////                    e.printStackTrace();
-////                }
-//
-//                Log.d("     Data", s);
+                // making request to server & parsing the data ------------------------
+                parseResult(gr.GetResponses(Webservices.WEBSERVICE_BILL_PURCHASE_GST));
 
 
-
-
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-
                 e.printStackTrace();
             }
             return null;
@@ -276,12 +199,11 @@ public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout
 
             feedsList = new ArrayList<>();
 
-
             JSONArray jsonarray = new JSONArray(result);
+
             for (int i = 0; i < jsonarray.length(); i++) {
 
                 FeedItem item = new FeedItem();
-
                 JSONObject post = jsonarray.getJSONObject(i);
 
                 item.setProprietor_name1(post.optString("Name"));
@@ -292,7 +214,6 @@ public class PurchaseGST extends AppCompatActivity implements SwipeRefreshLayout
                 item.setPaid_un_paid(post.optString("PaidAmount"));
 
                 feedsList.add(item);
-
             }
 
         } catch (JSONException e) {

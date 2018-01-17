@@ -33,6 +33,8 @@ import java.util.List;
 import dashboard.jmtechmind.com.jmdashboard.Adapters.OffersRootAdapter;
 import dashboard.jmtechmind.com.jmdashboard.R;
 import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
+import dashboard.jmtechmind.com.jmdashboard.Utils.GetReaponse;
+import dashboard.jmtechmind.com.jmdashboard.Utils.Webservices;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -43,34 +45,31 @@ import static android.view.View.VISIBLE;
 
 public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-        Intent i;
-        Context mcontext;
-        SearchView inputSearch;
-        List<FeedItem> filteredModelList;
+    Context mcontext;
+    SearchView inputSearch;
+    List<FeedItem> filteredModelList;
+    GetReaponse gr;//gr = new GetReaponse();
 
+    OffersRootAdapter adapter;
+    RecyclerView mRecyclerView;
+    View emptyView;
+    boolean isfilter = false;
+    SwipeRefreshLayout swipeContainer;
+    private List<FeedItem> feedsList;
 
-        OffersRootAdapter adapter;
-        boolean lang = false;
-        RecyclerView mRecyclerView;
-        View emptyView;
-        View view;
-        boolean isfilter = false;
-        SwipeRefreshLayout swipeContainer;
-        TextView llcandi;
-private List<FeedItem> feedsList;
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_main);
         mcontext = this;
+        gr = new GetReaponse();
 
         // add back arrow to toolbar
         if (getSupportActionBar() != null) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Customer List");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setTitle("Customer List");
         }
 
         emptyView = findViewById(R.id.null_layout);
@@ -84,29 +83,29 @@ protected void onCreate(Bundle savedInstanceState) {
         new OfferAsyncHttpTask().execute();
 
         inputSearch.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
-        //enabling touch anywhrer fuction of searchbar -------------
-        // inputSearch.onActionViewExpanded();
-        inputSearch.setIconified(false);
-        }
+            @Override
+            public void onClick(View v) {
+                //enabling touch anywhrer fuction of searchbar -------------
+                // inputSearch.onActionViewExpanded();
+                inputSearch.setIconified(false);
+            }
         });
 
         inputSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-@Override
-public boolean onQueryTextSubmit(String query) {
-        return false;
-        }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-@Override
-public boolean onQueryTextChange(String newText) {
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
-        isfilter = true;
-        filteredModelList = filter(feedsList, newText);
-        adapter.setFilter(filteredModelList);
-        return true;
+                isfilter = true;
+                filteredModelList = filter(feedsList, newText);
+                adapter.setFilter(filteredModelList);
+                return true;
 
-        }
+            }
 
         });
 
@@ -114,159 +113,89 @@ public boolean onQueryTextChange(String newText) {
 
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-        android.R.color.holo_green_light,
-        android.R.color.holo_orange_light,
-        android.R.color.holo_red_light);
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
-//        swipeContainer.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                swipeContainer.setRefreshing(true);
-//            }
-//        });
 
-        }
+    }
 
-@Override
-public boolean onOptionsItemSelected(MenuItem menuItem) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
 //            Intent i = new Intent(AboutUsActivity.this, MainActivity.class);
 //            startActivity(i);
-        finish();
+            finish();
         }
         return super.onOptionsItemSelected(menuItem);
-        }
+    }
 
-private List<FeedItem> filter(List<FeedItem> models, String query) {
+    private List<FeedItem> filter(List<FeedItem> models, String query) {
         query = query.toLowerCase();
 
-final List<FeedItem> filteredModelList = new ArrayList<>();
+        final List<FeedItem> filteredModelList = new ArrayList<>();
         for (FeedItem model : models) {
-final String text = model.getProprietor_name1().toLowerCase();
-        if (text.contains(query)) {
-        filteredModelList.add(model);
+            final String text = model.getProprietor_name1().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
 
-        }
+            }
         }
         return filteredModelList;
-        }
+    }
 
-@Override
-public void onRefresh() {
+    @Override
+    public void onRefresh() {
         new OfferAsyncHttpTask().execute();
-        }
-
-
-//OLDDDD fething offers Task--------------------------------------------------------------------------------------------
-public class OfferAsyncHttpTask extends AsyncTask<String, Void, Integer> {
-
-    @Override
-    protected void onPreExecute() {
-        swipeContainer.setRefreshing(true);
-
-
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    protected Integer doInBackground(String... params) {
-        try {
-//                http://10.10.10.53/tenantname.phphttp://localhost/tenantname.php?status=unpaid
-            URL url = new URL("http://10.10.10.53/jm_bill_cusotmerlist.php");
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    //OLDDDD fething offers Task--------------------------------------------------------------------------------------------
+    public class OfferAsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
-//                ApiCrypter apicry = new ApiCrypter();
-//                String data_web = "";
+        @Override
+        protected void onPreExecute() {
+            swipeContainer.setRefreshing(true);
+        }
 
-            String encryptedRequest = "";
-//                try {
-//                    encryptedRequest = apicry.encrypt(data_web);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected Integer doInBackground(String... params) {
+            try {
 
-            String urlParameters = encryptedRequest;
+                // making request to server & parsing the data ------------------------
+                parseResult(gr.GetResponses(Webservices.WEBSERVICE_CUST_BILL));
 
-            //  Log.d("BOOKING_params", urlParameters);
-
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
-            connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-            connection.setDoOutput(true);
-            DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-            dStream.writeBytes(urlParameters);
-            dStream.flush();
-            dStream.close();
-            // int responseCode = connection.getResponseCode();
-            final StringBuilder output = new StringBuilder();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line = "";
-            StringBuilder responseOutput = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                responseOutput.append(line);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            br.close();
-
-            output.append(responseOutput.toString());
-
-
-            String s = output.toString();
-
-
-//                try {
-//                    apicry = new ApiCrypter();
-//                    String res = ApiCrypter.decrypt(s);
-//                    s = URLDecoder.decode(res, "UTF-8");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-            Log.d("     Data", s);
-
-
-            parseResult(s);
-
-
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Integer result) {
-        swipeContainer.setRefreshing(false);
-
-
-        adapter = new OffersRootAdapter(mcontext, feedsList);
-        mRecyclerView.setAdapter(adapter);
-
-
-        if (adapter.getItemCount() == 0) {
-            mRecyclerView.setVisibility(GONE);
-            emptyView.setVisibility(VISIBLE);
-        } else {
-            mRecyclerView.setVisibility(VISIBLE);
-            emptyView.setVisibility(GONE);
+            return null;
         }
 
+        @Override
+        protected void onPostExecute(Integer result) {
+            swipeContainer.setRefreshing(false);
+
+            adapter = new OffersRootAdapter(mcontext, feedsList);
+            mRecyclerView.setAdapter(adapter);
+
+            if (adapter.getItemCount() == 0) {
+                mRecyclerView.setVisibility(GONE);
+                emptyView.setVisibility(VISIBLE);
+            } else {
+                mRecyclerView.setVisibility(VISIBLE);
+                emptyView.setVisibility(GONE);
+            }
+
+        }
     }
-}
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void parseResult(String result) {
-
         try {
 
             feedsList = new ArrayList<>();
-
 
             JSONArray jsonarray = new JSONArray(result);
             for (int i = 0; i < jsonarray.length(); i++) {
@@ -283,7 +212,6 @@ public class OfferAsyncHttpTask extends AsyncTask<String, Void, Integer> {
                 item.setPaid_un_paid(post.optString("Mobile"));
 
                 feedsList.add(item);
-
             }
 
         } catch (JSONException e) {

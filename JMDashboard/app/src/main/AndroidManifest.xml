@@ -19,12 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewPaidUnPaidActivity" />
-        <activity android:name=".VendorList" />
-        <activity android:name=".CustPaymentList" />
-        <activity android:name=".SalesCustList"/>
-        <activity android:name=".SalesGST"/>
-        <activity android:name=".PurchaseGST"/>
+
+        <activity android:name=".Activities.ViewPaidUnPaidActivity" />
+        <activity android:name=".Activities.VendorList" />
+        <activity android:name=".Activities.CustPaymentList" />
+        <activity android:name=".Activities.SalesCustList"/>
+        <activity android:name=".Activities.SalesGST"/>
+        <activity android:name=".Activities.PurchaseGST"/>
     </application>
 
 </manifest>

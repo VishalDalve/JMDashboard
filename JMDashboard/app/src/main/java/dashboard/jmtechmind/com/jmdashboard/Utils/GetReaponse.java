@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class GetReaponse {
 
-    public String GetResponses(Context mcontext, String Addrurl) throws MalformedURLException, IOException {
+    public String GetResponses(String Addrurl) throws IOException {
 
         URL url = new URL(Addrurl);
 
