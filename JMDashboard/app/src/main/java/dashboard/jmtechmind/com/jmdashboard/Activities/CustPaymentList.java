@@ -1,7 +1,6 @@
 package dashboard.jmtechmind.com.jmdashboard.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,23 +9,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +39,7 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
     Context mcontext;
     SearchView inputSearch;
     List<FeedItem> filteredModelList;
-    GetReaponse gr;//gr = new GetReaponse();
-
+    GetReaponse gr;
     OffersRootAdapter adapter;
     RecyclerView mRecyclerView;
     View emptyView;
@@ -104,9 +94,7 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
                 filteredModelList = filter(feedsList, newText);
                 adapter.setFilter(filteredModelList);
                 return true;
-
             }
-
         });
 
         swipeContainer.setOnRefreshListener(this);
@@ -116,8 +104,6 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
     }
 
     @Override
@@ -138,7 +124,6 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
             final String text = model.getProprietor_name1().toLowerCase();
             if (text.contains(query)) {
                 filteredModelList.add(model);
-
             }
         }
         return filteredModelList;
@@ -194,7 +179,6 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void parseResult(String result) {
         try {
-
             feedsList = new ArrayList<>();
 
             JSONArray jsonarray = new JSONArray(result);
@@ -218,5 +202,4 @@ public class CustPaymentList extends AppCompatActivity implements SwipeRefreshLa
             e.printStackTrace();
         }
     }
-
 }

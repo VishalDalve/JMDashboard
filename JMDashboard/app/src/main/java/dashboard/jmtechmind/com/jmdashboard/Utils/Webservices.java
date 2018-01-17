@@ -21,5 +21,7 @@ public class Webservices {
 
     public static String WEBSERVICE_BILL_PURCHASE_GST = WEB_HOST_URL + "/jm_bill_purchase_gst.php";
 
+    public static String WEBSERVICE_TENANT_PAID_UNPAIS = WEB_HOST_URL + "/tenant_paid_unpaid.php";
+
 
 }

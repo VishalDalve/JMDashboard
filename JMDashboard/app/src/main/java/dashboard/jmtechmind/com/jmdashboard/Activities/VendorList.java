@@ -40,7 +40,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Created by jmtec on 1/6/2018.
+ * Created by VISHAL on 1/6/2018.
  */
 
 public class VendorList extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
