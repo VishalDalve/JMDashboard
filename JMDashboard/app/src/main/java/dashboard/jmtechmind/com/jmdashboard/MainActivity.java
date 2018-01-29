@@ -36,6 +36,7 @@ import dashboard.jmtechmind.com.jmdashboard.Activities.CustPaymentList;
 import dashboard.jmtechmind.com.jmdashboard.Activities.PurchaseGST;
 import dashboard.jmtechmind.com.jmdashboard.Activities.SalesCustList;
 import dashboard.jmtechmind.com.jmdashboard.Activities.SalesGST;
+import dashboard.jmtechmind.com.jmdashboard.Activities.SalesReport;
 import dashboard.jmtechmind.com.jmdashboard.Activities.VendorList;
 import dashboard.jmtechmind.com.jmdashboard.Activities.ViewPaidUnPaidActivity;
 import dashboard.jmtechmind.com.jmdashboard.Utils.FeedItem;
@@ -99,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(MainActivity.this, "Sales Report in progress", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(MainActivity.this, SalesReport.class);
+                startActivity(i);
 
             }
         });

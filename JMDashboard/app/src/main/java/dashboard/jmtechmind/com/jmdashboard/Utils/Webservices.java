@@ -23,5 +23,6 @@ public class Webservices {
 
     public static String WEBSERVICE_TENANT_PAID_UNPAIS = WEB_HOST_URL + "/tenant_paid_unpaid.php";
 
+    public static String WEBSERVICE_SALES_REPORT = WEB_HOST_URL + "/jm_sales_report.php";
 
 }
